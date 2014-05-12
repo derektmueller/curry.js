@@ -1,0 +1,13 @@
+
+Uses eval to curry a given function.
+
+If given a function fn of n arguments, curry () will return:
+
+function (a1) { 
+    return function (a2) { 
+        ... return function (an) { 
+            return fn.apply (a1, a2, ..., an);
+        }
+    }
+}
+
