@@ -7,8 +7,7 @@ Released under the MIT license
 http://opensource.org/licenses/MIT
 */
 
-Function.prototype.curry = function (i) {
-    var i = typeof i === 'undefined' ? 0 : i;
+Function.prototype.curry = function () {
     var fn = this;
 
     if (this.length === 0) {
@@ -17,25 +16,19 @@ Function.prototype.curry = function (i) {
         };
     }
 
-    var obj = {}; 
-    if (i < this.length - 1) {
-        eval ('obj["fn"] = function (a' + i + ') {' +
-            'return ' + fn.curry (i + 1).toString () + ';' + 
-        '}');
-    } else {
-        var argStr = '';
-        for (var j = 0; j < fn.length; j++) {
-            argStr += 'a' + j;
-            if (j < fn.length - 1) {
-                argStr += ', ';
-            }
-        }
-        eval ('obj["fn"] = function (a' + i + ') {' +
-            'return fn (' + argStr + ');' +
-        '}')
+    var argStr = '';
+    var curriedFn = '';
+    var closingParens = '';
+    for (var i = 0; i < this.length; i++) {
+        curriedFn += 'function (a' + i + ') { return ';
+        argStr += 'a' + i + (i === this.length - 1 ? '' : ', ');
+        closingParens += ' }';
     }
-    return obj['fn'];
+    curriedFn += 'fn (' + argStr + ');' + closingParens;
+
+    return eval ('false || ' + curriedFn);
 };
+
 
 function add (a, b) { return a + b; }
 
