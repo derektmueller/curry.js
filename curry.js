@@ -1,10 +1,6 @@
 #!/usr/bin/node 
 /*
 https://github.com/parenparen/
-
-Copyright 2014 Derek Mueller
-Released under the MIT license
-http://opensource.org/licenses/MIT
 */
 
 Function.prototype.curry = function () {
